@@ -1,0 +1,31 @@
+name: Cookbook examples
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: blender-cookbook-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  asset-source-contract:
+    name: Asset source contract (Python 3.12)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile generator
+        run: python -m py_compile examples/01-first-game-asset/create_lantern.py
+      - name: Run source-contract tests
+        working-directory: examples/01-first-game-asset
+        run: python -m unittest discover -s tests -v
