@@ -15,7 +15,7 @@ A **Blender cookbook** for game assets: modeling, scripting, materials, and rend
 
 ## Repository role and status
 
-**Status:** Active, public — seeding. Pattern passes land in follow-up work; the table below lists what is planned, not what is already written.
+**Status:** Active, public — first procedural asset generator implemented. Source-contract tests do not execute Blender; each generated asset still requires an engine-backed smoke test and visual review.
 
 **What this repository is:** Blender patterns — modeling, scripting, materials, and render/export pipelines for game assets.
 
@@ -33,20 +33,36 @@ Game developers and artists building game-ready assets in Blender for real-time 
 - A game engine or web client that can load the exported asset formats
 - Synthetic reference art for the examples
 
-## Patterns (planned)
+## Patterns
 
-| # | Example | What it will demonstrate |
-|---|---------|--------------------------|
-| 01 | `01-first-game-asset` | A first low-poly game asset: modeling, UVs, and export to a game-ready format |
-| 02 | `02-scripting-pipeline` | Blender Python scripting: batch operations and asset preparation without manual repetition |
-| 03 | `03-materials-textures` | Materials and texture baking for real-time game rendering |
-| 04 | `04-render-export` | Rendering turntables and sprites, and exporting assets for engine and web delivery |
+| # | Example | Status | What it demonstrates |
+|---|---------|--------|----------------------|
+| 01 | `01-first-game-asset` | Implemented generator | Procedural low-poly lantern, named materials/components, and GLB export settings |
+| 02 | `02-scripting-pipeline` | Planned | Blender Python scripting: batch operations and asset preparation without manual repetition |
+| 03 | `03-materials-textures` | Planned | Materials and texture baking for real-time game rendering |
+| 04 | `04-render-export` | Planned | Rendering turntables and sprites, and exporting assets for engine and web delivery |
+
+## Quick start
+
+Requires Blender for generation and Python 3.12+ for source-contract tests:
+
+```sh
+cd examples/01-first-game-asset
+blender --background --python create_lantern.py -- --output ./build/zqm-lantern.glb
+python -m unittest discover -s tests -v
+```
+
+The script deletes existing objects in its active scene, so use the background command or a disposable project. The automated tests do not launch Blender.
 
 ## Repository layout
 
 ```text
 blender-cookbook/
-├── examples/  # one directory per pattern
+├── .github/workflows/examples.yml
+├── examples/01-first-game-asset/
+│   ├── create_lantern.py
+│   ├── README.md
+│   └── tests/test_asset_script_contract.py
 ├── README.md
 └── LICENSE
 ```
