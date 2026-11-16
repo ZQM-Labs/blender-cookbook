@@ -29,7 +29,7 @@ Game developers and artists building game-ready assets in Blender for real-time 
 
 ## Prerequisites
 
-- Blender 5.2.3 LTS (fleet-verified on Node-1; version pinned per pattern at fill time)
+- Blender 5.2.3 LTS (as of Oct 2026; verify the current version before use) (fleet-verified on Node-1; version pinned per pattern at fill time)
 - A game engine or web client that can load the exported asset formats
 - Synthetic reference art for the examples
 
